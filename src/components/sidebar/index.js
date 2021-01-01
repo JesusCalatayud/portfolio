@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import icons from '../../icons';
+import { Link } from 'react-router-dom';
 
 const {
     KeyboardArrowRightIcon,
@@ -20,7 +21,8 @@ const styles = {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        background: 'linear-gradient(to bottom, #5B86E5, #36D1DC)'
+        background: 'linear-gradient(to bottom, #5B86E5, #36D1DC)',
+        textDecoration: 'none'
     },
 
     menuItemWrapper: {
@@ -29,7 +31,9 @@ const styles = {
         justifyContent: 'center',
         width: '100%',
         padding: '10px',
-        transition: 'width 0.5s'
+        transition: 'width 0.5s',
+        textDecoration: 'none',
+        color: 'inherit'
     },
 
     menuItemHover: {
@@ -69,16 +73,19 @@ const styles = {
 const menuSections = [
     {
         name: 'Home',
+        route: '/',
         icon: HomeOutlinedIcon
     },
 
     {
         name: 'Work',
+        route: '/work',
         icon: WorkOutlineOutlinedIcon
     },
 
     {
         name: 'About',
+        route: '/about',
         icon: SentimentVerySatisfiedOutlinedIcon
     }
 ]
@@ -107,7 +114,8 @@ const Sidebar = () => {
 
             {menuSections.map((section, index) => {
                 return (
-                    <div
+                    <Link to={section.route}
+                        key={index}
                         onMouseEnter={(e) => navHoverHandler(e, index)}
                         onMouseLeave={(e) => navHoverHandler(e, index)}
                         style={sidebarExpanded && navHover.index === index ?
@@ -117,8 +125,7 @@ const Sidebar = () => {
                                 navHover.index === index ?
                                     { ...styles.menuItemWrapper, ...styles.menuItemHover } :
                                     styles.menuItemWrapper
-                        }
-                        key={index}>
+                        }>
                         <div
                             style={sidebarExpanded ?
                                 { ...styles.iconContainer, width: '100%' } :
@@ -136,7 +143,7 @@ const Sidebar = () => {
                                 styles.navTextContainer}>
                             {section.name}
                         </div>
-                    </div>
+                    </Link>
                 );
             })}
         </div>
